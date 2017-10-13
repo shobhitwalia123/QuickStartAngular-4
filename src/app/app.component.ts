@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Angular 4';
+
+  showAlert(){
+    alert("Hi this is an alert");
+  }
+  
 }
