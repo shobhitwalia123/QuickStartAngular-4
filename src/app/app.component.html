@@ -1,11 +1,47 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div style="text-align:center">
   <h1>
-    Welcome to {{title}}!
+    Client ABC Pharmacy
   </h1>
+  <div style="float:right; margin-right:50px;">
+  <label>Search</label>  <input type="text" #medicineName (change)="search(medicineName.value)"/>
+  </div>
+  <div *ngIf="filteredMedicine.length>0" style="height: 500px; overflow-y: scroll; width:100%;">
+    <table class="table">
+      <thead class="thead-dark">
+        <th scope="col">Medicine Name </th>
+        <th scope="col">Brand</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Expiry Date</th>
+        <th scope="col">Notes</th>
+      </thead>
+      <tr *ngFor="let medicine of filteredMedicine" scope="row" [ngClass]="{'expire_class': medicine.quantity < 10}">
+        <td>{{medicine.name}}</td>
+        <td>{{medicine.brand}}</td>
+        <td>{{medicine.quantity}}</td>
+        <td>{{medicine.expiry}}</td>
+        <td>{{medicine.notes}}</td>
+    </tr>
+    </table>
+  </div>
+  <div *ngIf="filteredMedicine.length==0"> NO Record Found</div>
   <div>
-  <input type="button" (click)="showAlert()" Value="Click here.."/>
   </div>
 </div>
+<div>
+  <div class="form-row">
+    <div class="col-1"><label></label></div>
+    <div class="col"><input type="text" #Name placeholder="Medicine Name" class="form-control"/></div>
+    <div class="col"><input type="text" #Brand placeholder="Brand" class="form-control" /></div>
+    <div class="col"><input type="text" #Quantity placeholder="Quantity" class="form-control"/></div>
+    <div class="col"><input type="text" #Expiry placeholder="Expiry" class="form-control datepicker"/></div>
+    <div class="col"><input type="button" class="form-control" (click)="addNew(Name.value, Brand.value, Quantity.value, Expiry.value)" Value="Add New"  class="btn btn-success"/></div>
+  <div class="form-row">
+
+</div>
+<style>
+  .expire_class {background-color: #faa8a5;}
+</style>
+
 
 
