@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { DataService } from '../Service/medicine.servie';
 declare var $: any;
+declare var moment: any;
 
 
 @Component({
@@ -20,7 +21,6 @@ export class MedicineListComponent {
   filteredMedicine = this.medicines;
   
   addNew(mName,mBrand,mQuantity,mExpiry,mprice, mnotes){
-   
     this.dataService.sendSaveRequest(
       {name: mName, 
       brand: mBrand, 
@@ -40,19 +40,19 @@ export class MedicineListComponent {
     else {
       this.filteredMedicine = this.medicines;
     }
-   
   }
 
   navigate(id){
     window.location.href = '/medicine?id='+ id;
   }
+  
   public ngOnInit()
   {
    $("#datetimepicker1").datetimepicker();
    this.getMedicines();
   }
 
-  show()
+show()
 {
   this.showModal = true; 
   this.title = "Add Medicine"; 
@@ -68,5 +68,15 @@ getMedicines(){
     this.medicines = data;
     this.filteredMedicine = this.medicines;
   }) 
+}
+
+getFormattedDate(date){
+  return  moment(date).format('MM/DD/YYYY');;
+}
+
+getDateDifference(date1){
+  var startDate = moment(date1);
+  var endDate = moment(new Date());
+  return endDate.diff(startDate, 'days');
 }
 }
